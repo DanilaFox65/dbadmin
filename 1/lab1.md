@@ -424,10 +424,12 @@ sudo tail -n 50 /var/lib/postgresql/15/main/log/postgresql-2026-02-13_195606.log
 
 11. Назначение ролей и прав
 Создание ограниченной роли limited_user
-sql
+
+```
 CREATE ROLE limited_user WITH LOGIN PASSWORD '1234';
 Screenshots/24.png
 
+```
 Выдача минимальных прав
 ```
 GRANT CONNECT ON DATABASE dbvoronchuk TO limited_user;
@@ -471,11 +473,13 @@ SELECT * FROM public.people;
 ```
 - ![screen](Screenshots/32.png)
 
-- Создание роли readonly_role, выдача прав на чтение таблицы people и назначение этой роли пользователю limited_user представлены на рисунке ниже
-![screen](Screenshots/28.png)
+- Создание роли readonly_role, выдача прав на чтение таблицы people  представлены на рисунке ниже
+![screen](Screenshots/33.png)
 
-- На рисунке ниже показано подключение к БД под ограниченным пользователем limited_user, проверка его привилегий через \du (где видно членство в роли readonly_role) и выполнение запроса на чтение данных из таблицы people, подтверждающее корректность настроенных прав
-![screen](Screenshots/29.png)
+- На рисунке ниже показано подключение к базе данных dbvoronchuk под ограниченным пользователем user_role (включённым в роль-группу readonly_role) и проверка его привилегий: выполнение SELECT из таблицы public.people разрешено, а попытка изменения данных командой UPDATE завершается ошибкой permission denied (прав на запись нет).
+
+![screen](Screenshots/36.png)
+
 
 ---
 
